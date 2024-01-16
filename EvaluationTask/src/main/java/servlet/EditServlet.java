@@ -56,7 +56,7 @@ public class EditServlet extends HttpServlet {
 		if ("edit".equals(button)) {
 			long update = bDao.editEvaluationTask1(name, kananame, price, jancd);
 			if(update == 1) 
-				response.sendRedirect("ListServlet");
+			response.sendRedirect("ListServlet");
 		} else if ("delete".equals(button)) {
 			long count = bDao.delete(jancd);
 			if(count == 1) 
