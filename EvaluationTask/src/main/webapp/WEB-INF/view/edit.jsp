@@ -17,8 +17,9 @@
 <input type="text" name="kananame" value="<%=EvaluationTask1Bean.getBOOKKANA() %>"><br>
 <strong><label>価　格：</label></strong>
 <input type="text" name="price" value="<%=EvaluationTask1Bean.getPRICE() %>"><br>
-<button type="submit">編集する</button>
+<button type="submit" name="button" value="edit">編集する</button>
+<button type="submit" name="button" value="delete">削除する</button>
 </form>
-<a href="ListServlet">一覧に戻る</a><!-- jdなおjフォjn青jnファジャのj -->
+<a href="ListServlet">一覧に戻る</a>
 </body>
 </html>

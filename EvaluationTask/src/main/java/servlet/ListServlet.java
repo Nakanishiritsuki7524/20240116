@@ -22,7 +22,6 @@ public class ListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		EvaluationTask1Bean EvaluationTask1 = new EvaluationTask1Bean();
 		BookDAO bDao = new BookDAO();
 		List<EvaluationTask1Bean> EvaluationTask1List = new ArrayList<>();
 		

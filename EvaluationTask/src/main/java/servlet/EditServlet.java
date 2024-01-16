@@ -48,15 +48,19 @@ public class EditServlet extends HttpServlet {
 	String kananame = request.getParameter("kananame");
 	String price1 = request.getParameter("price");
 	int price = Integer.parseInt(price1);
+	String button = request.getParameter("button");
 	
 	BookDAO bDao = new BookDAO();
 	
 	try {
-		if(jancd > 0) {
-		int update = bDao.editEvaluationTask1(name, kananame, price, jancd);
-		if(update == 1) {
-		response.sendRedirect("ListServlet");
-		}
+		if ("edit".equals(button)) {
+			long update = bDao.editEvaluationTask1(name, kananame, price, jancd);
+			if(update == 1) 
+				response.sendRedirect("ListServlet");
+		} else if ("delete".equals(button)) {
+			long count = bDao.delete(jancd);
+			if(count == 1) 
+			response.sendRedirect("ListServlet");
 		}
 	}catch(ClassNotFoundException e) {
 		e.printStackTrace();

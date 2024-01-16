@@ -88,4 +88,29 @@ public class BookDAO {
 			    }
 			    return row;
 			}
+			//新規作成用
+			public int register(String jancd,String isbncd,String bookname,String bookkana,int price) throws SQLException, ClassNotFoundException {
+				int count = 0;
+				String sql ="INSERT INTO BOOK (JAN_CD, ISBN_CD, BOOK_NM, BOOK_KANA, PRICE) VALUES (?, ?, ?, ?, ?)";
+				try(Connection con = DBConnection.getConnection();
+						PreparedStatement stmt = con.prepareStatement(sql)){
+					stmt.setString(1, jancd);
+					stmt.setString(2, isbncd);
+					stmt.setString(3, bookname);
+					stmt.setString(4, bookkana);
+					stmt.setInt(5, price);
+					count = stmt.executeUpdate();
+				}
+				return count;
+			}
+			public long delete(long jancd) throws ClassNotFoundException, SQLException {
+				long count = 0;
+			String sql = "DELETE FROM BOOK WHERE JAN_CD = ?";
+			try (Connection con = DBConnection.getConnection();
+			     PreparedStatement stmt = con.prepareStatement(sql)) {
+			     stmt.setLong(1, jancd);
+			     count = stmt.executeUpdate();
+			    }
+		     return count;
+			}
 }

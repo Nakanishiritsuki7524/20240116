@@ -36,6 +36,6 @@
             <% } %>
         </tbody>
     </table> 
- <!--    <a href="RegisterServlet">新規作成</a> -->
+ <a href="RegisterServlet">新規作成</a>
 </body>
 </html>
