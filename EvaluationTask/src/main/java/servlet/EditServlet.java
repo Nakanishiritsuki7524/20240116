@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.bean.EvaluationTask1Bean;
 import model.dao.BookDAO;
 
@@ -47,11 +48,35 @@ public class EditServlet extends HttpServlet {
 	String name = request.getParameter("name");
 	String kananame = request.getParameter("kananame");
 	String price1 = request.getParameter("price");
-	int price = Integer.parseInt(price1);
 	String button = request.getParameter("button");
 	
-	BookDAO bDao = new BookDAO();
+	int price = 0;
+	int error = 0;
 	
+	 if (name == null ||name.trim().isEmpty()) {
+         request.setAttribute("error1", "※何か入力してください。");
+         error = 1;
+     }
+	 
+	 if (kananame == null || kananame.trim().isEmpty()) {
+         request.setAttribute("error2", "※何か入力してください。");
+         error = 1;
+     }
+	 
+	 if (price1 == null || price1.trim().isEmpty()|| !price1.matches("\\d+") || price1.length() < 1 || price1.length() > 11) {
+         request.setAttribute("error3", "※1文字以上11文字以内の数字で記入してください");
+         error = 1;
+     }else {
+    	 price = Integer.parseInt(price1);
+     }
+	
+	 if(error == 1) {
+		 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/edit.jsp");
+		 dispatcher.forward(request, response);
+	 }else {
+		 
+			HttpSession session = request.getSession();
+			BookDAO bDao = new BookDAO();
 	try {
 		if ("edit".equals(button)) {
 			long update = bDao.editEvaluationTask1(name, kananame, price, jancd);
@@ -60,7 +85,8 @@ public class EditServlet extends HttpServlet {
 		} else if ("delete".equals(button)) {
 			long count = bDao.delete(jancd);
 			if(count == 1) 
-			response.sendRedirect("ListServlet");
+			session.setAttribute("delete", jancd + "を削除しました。");
+			response.sendRedirect("ListServlet?delete=true");
 		}
 	}catch(ClassNotFoundException e) {
 		e.printStackTrace();
@@ -81,4 +107,5 @@ public class EditServlet extends HttpServlet {
 	}
 	}
 
+}
 }

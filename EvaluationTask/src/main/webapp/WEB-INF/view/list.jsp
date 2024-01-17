@@ -9,11 +9,19 @@
 </head>
 <body>
 <h1>一覧</h1>
+<% String delete = request.getParameter("delete"); %>
+<% String clear = request.getParameter("clear"); %>
+<% if ("true".equals(clear)) { %>
+    <p><%= session.getAttribute("clear") %></p>
+<% } else if("true".equals(delete)){%>
+    <p><%= session.getAttribute("delete") %></p>
+<% } %>
+
 <table border="1">
         <thead>
             <tr>
-                <th>EvaluationTask1 ID</th>
-                <th>Title</th>
+                <th>EvaluationTask ID</th>
+                <th>BookName</th>
                 <th>Price</th>
             </tr>
         </thead>
@@ -31,7 +39,7 @@
                 <% } %>
             <% } else { %>
                 <tr>
-                    <td colspan="4">No　</td>
+                    <td colspan="4">Empty</td>
                 </tr>
             <% } %>
         </tbody>
